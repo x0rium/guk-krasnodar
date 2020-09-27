@@ -1,0 +1,14 @@
+{
+  "name": "guk-krasnodar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/x0rium/guk-krasnodar.git",
+  "author": "x0rium <tuxera@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+
+  }
+}
