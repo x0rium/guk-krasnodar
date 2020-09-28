@@ -1,6 +1,6 @@
 {
   "name": "@x0rium/guk-krasnodar",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "index.js",
   "repository": "https://github.com/x0rium/guk-krasnodar.git",
   "author": "x0rium <tuxera@gmail.com>",
@@ -8,7 +8,9 @@
   "dependencies": {
     "request": "^2.88.2"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "test": "echo \"No test specified\""
   },
