@@ -8,6 +8,7 @@
   "dependencies": {
     "request": "^2.88.2"
   },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "scripts": {
     "test": "echo \"No test specified\""
   },
