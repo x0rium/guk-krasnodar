@@ -1,6 +1,6 @@
 {
   "name": "guk-krasnodar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "repository": "https://github.com/x0rium/guk-krasnodar.git",
   "author": "x0rium <tuxera@gmail.com>",
@@ -11,8 +11,7 @@
   "scripts": {
     "test": "echo \"No test specified\""
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "np": {
     "tests": false
   }
