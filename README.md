@@ -17,9 +17,7 @@ const guk= require("./src/guk")
 
 const accountNumber = 'свой номер из квитанции'
 const g = new guk(accountNumber);
-g.getValues().then((v) => {
-    console.log(v)
-}).catch(e => e)
+g.getValues().then(v=>console.log(v)).catch(e => e)
 ```
 #### Результат
 ```
