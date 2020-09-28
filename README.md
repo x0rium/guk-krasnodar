@@ -4,7 +4,7 @@
 
 ### Установка 
 Нужно установить проект,
-`npm i guk`
+`npm i guk-krasnodar`
 после чего можно юзать
 ```JavaScript
 const gukClass = require("guk-krasnodar")
