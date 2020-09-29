@@ -1,6 +1,6 @@
 {
   "name": "@x0rium/guk-krasnodar",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "main": "/dist/integration.js",
   "repository": "https://github.com/x0rium/guk-krasnodar.git",
   "author": "x0rium <tuxera@gmail.com>",
