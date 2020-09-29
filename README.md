@@ -25,8 +25,8 @@ g.getValues().then(v=>console.log(v)).catch(e => e)
   {
     id: '38617',
     type: 'Холодная вода',
-    hz: '249709',
-    date: '21.02.2021',
+    hwId: '249709',
+    nextCheckDate: '21.02.2021',
     waterId: '38451',
     lastPostDate: 'August 2020',
     value: '584'
@@ -34,8 +34,8 @@ g.getValues().then(v=>console.log(v)).catch(e => e)
   {
     id: '38618',
     type: 'Горячая вода',
-    hz: '4000013',
-    date: '21.02.2021',
+    hwId: '4000013',
+    nextCheckDate: '21.02.2021',
     waterId: '38452',
     lastPostDate: 'August 2020',
     value: '294'
@@ -43,8 +43,8 @@ g.getValues().then(v=>console.log(v)).catch(e => e)
   {
     id: '38619',
     type: 'Горячая вода',
-    hz: '52871',
-    date: '06.02.2023',
+    hwId: '52871',
+    nextCheckDate: '06.02.2023',
     waterId: '38453',
     lastPostDate: 'August 2020',
     value: '50'
@@ -52,8 +52,8 @@ g.getValues().then(v=>console.log(v)).catch(e => e)
   {
     id: '38620',
     type: 'Холодная вода',
-    hz: '55872',
-    date: '06.02.2023',
+    hwId: '55872',
+    nextCheckDate: '06.02.2023',
     waterId: '38454',
     lastPostDate: 'August 2020',
     value: '68'
