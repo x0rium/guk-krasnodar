@@ -1,7 +1,7 @@
 {
   "name": "guk-krasnodar",
   "version": "1.1.9",
-  "main": "src/integration.js",
+  "main": "index.js",
   "repository": "https://github.com/x0rium/guk-krasnodar.git",
   "author": "x0rium <tuxera@gmail.com>",
   "license": "MIT",
