@@ -5,6 +5,9 @@
   "repository": "https://github.com/x0rium/guk-krasnodar.git",
   "author": "x0rium <tuxera@gmail.com>",
   "license": "MIT",
+  "declaration": true,
+  "types": "dist/integration.d.ts",
+  "prepublish": "tsc",
   "dependencies": {
     "@types/request": "^2.48.5",
     "request": "^2.88.2"
