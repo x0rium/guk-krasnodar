@@ -2,7 +2,7 @@ const request = require('request');
 
 class guk {
     constructor(accountNumber) {
-        this.accountNumber=accountNumber;
+        this.accountNumber = accountNumber;
         this.csrf = null;
         this.cookie = null;
     }
@@ -17,7 +17,7 @@ class guk {
                 'Cookie': this.cookie
             },
             formData: {
-                'SearchLsForm[ls]':this.accountNumber,
+                'SearchLsForm[ls]': this.accountNumber,
                 '_csrf': this.csrf
             }
         };
@@ -89,11 +89,24 @@ class guk {
     }
 
     _parseValues(html) {
-        const rule = /<\/td><td data-col-seq="1">(?<value>.*)<\/td><\/tr>/g
-        const matches = html.matchAll(rule);
+        //https://regex101.com/r/k1mXZO/3
+        let clear;
+        const matches = {};
+        clear = html.replace(/^\s*[\r\n]/gm, "").replace(/^\s*$(?:\r\n?|\n)/gm, "");
+        const rule1 = /<tr data-key="(?<id>\d{1,10})"><td data-col-seq="0"><strong>(?<type>.{1,20})<\/strong><\/td><td data-col-seq="1">(?<hz>\d{1,10})<\/td><td data-col-seq="2">(?<date>.{6,10})/gm
+        matches.rule1 = clear.matchAll(rule1);
+        const rule2 = /<tr data-key="(?<waterId>\d{1,6})"><td data-col-seq="0">(?<lastPostDate>.{3,20})<\/td><td data-col-seq="1">(?<value>\d{1,10})/gm
+        matches.rule2 = clear.matchAll(rule2);
         let values = [];
-        for (const m of matches) {
-            values.push(m.groups.value);
+        let x = 0;
+        for (const m of matches.rule1) {
+            values[x] = Object.assign({}, m.groups);
+            x++
+        }
+        x = 0;
+        for (const m of matches.rule2) {
+            values[x] = Object.assign(values[x], m.groups);
+            x++;
         }
         return values;
     }
@@ -106,6 +119,7 @@ class guk {
                 this.findAccountRequest((finAccErr) => {
                     reject(finAccErr)
                 }, (resp) => {
+
                     resolve(this._parseValues(resp.body));
                 })
             });
@@ -113,4 +127,5 @@ class guk {
 
     }
 }
-module.exports=guk;
+
+module.exports = guk;

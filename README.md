@@ -21,7 +21,44 @@ g.getValues().then(v=>console.log(v)).catch(e => e)
 ```
 #### Результат
 ```
-[ '584', '294', '50', '68' ]
+[
+  {
+    id: '38617',
+    type: 'Холодная вода',
+    hz: '249709',
+    date: '21.02.2021',
+    waterId: '38451',
+    lastPostDate: 'August 2020',
+    value: '584'
+  },
+  {
+    id: '38618',
+    type: 'Горячая вода',
+    hz: '4000013',
+    date: '21.02.2021',
+    waterId: '38452',
+    lastPostDate: 'August 2020',
+    value: '294'
+  },
+  {
+    id: '38619',
+    type: 'Горячая вода',
+    hz: '52871',
+    date: '06.02.2023',
+    waterId: '38453',
+    lastPostDate: 'August 2020',
+    value: '50'
+  },
+  {
+    id: '38620',
+    type: 'Холодная вода',
+    hz: '55872',
+    date: '06.02.2023',
+    waterId: '38454',
+    lastPostDate: 'August 2020',
+    value: '68'
+  }
+]
 ```
 ### TODO
 - [X] CSRF tokens
