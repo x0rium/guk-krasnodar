@@ -5,19 +5,14 @@
 ### Установка 
 Нужно установить проект,
 `npm i guk-krasnodar`
-после чего можно юзать
-```JavaScript
-const gukClass = require("guk-krasnodar")
-const gukInstance = new gukClass("accoundId")
-```
+
 ### Example
 #### Получение данных водомеров
 ```JavaScript
-const guk= require("./src/guk")
-
-const accountNumber = 'свой номер из квитанции'
-const g = new guk(accountNumber);
-g.getValues().then(v=>console.log(v)).catch(e => e)
+const accountNumber = 'свой номер из квитанции';
+const integration = require("guk-krasnodar");
+const guk = new integration(accountNumber);
+guk.getData().then(data => {console.log(data)}).catch(e=>e);
 ```
 #### Результат
 ```

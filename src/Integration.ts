@@ -17,7 +17,7 @@ interface GUK {
     value: number
 }
 
-export class Integration {
+class Integration {
     private csrf: string
     private cookie: string
     private readonly accountNumber: string
@@ -119,7 +119,6 @@ export class Integration {
     }
 
     private parseValues(html: string): GUK[] {
-        // https://regex101.com/r/k1mXZO/3
         let clear;
         const matches = {
             rule1: undefined,
@@ -136,11 +135,13 @@ export class Integration {
             values[x] = Object.assign({}, m.groups);
             x++
         }
+
         x = 0;
         for (const m of matches.rule2) {
             values[x] = Object.assign(values[x], m.groups);
             x++;
         }
+
         return values.map((item => {
             const fields = ["id", "hwId", "waterId", "value"];
             fields.forEach(field => {
@@ -150,3 +151,5 @@ export class Integration {
         }));
     }
 }
+
+module.exports = Integration;
