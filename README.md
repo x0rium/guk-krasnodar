@@ -18,40 +18,40 @@ guk.getData().then(data => {console.log(data)}).catch(e=>e);
 ```
 [
   {
-    id: '38617',
+    id: 38617,
     type: 'Холодная вода',
-    hwId: '249709',
+    hwId: 249709,
     nextCheckDate: '21.02.2021',
-    waterId: '38451',
+    waterId: 38451,
     lastPostDate: 'August 2020',
-    value: '584'
+    value: 584
   },
   {
-    id: '38618',
+    id: 38618,
     type: 'Горячая вода',
-    hwId: '4000013',
+    hwId: 4000013,
     nextCheckDate: '21.02.2021',
-    waterId: '38452',
+    waterId: 38452,
     lastPostDate: 'August 2020',
-    value: '294'
+    value: 294
   },
   {
-    id: '38619',
+    id: 38619,
     type: 'Горячая вода',
-    hwId: '52871',
+    hwId: 52871,
     nextCheckDate: '06.02.2023',
-    waterId: '38453',
+    waterId: 38453,
     lastPostDate: 'August 2020',
-    value: '50'
+    value: 50
   },
   {
-    id: '38620',
+    id: 38620,
     type: 'Холодная вода',
-    hwId: '55872',
+    hwId: 55872,
     nextCheckDate: '06.02.2023',
-    waterId: '38454',
+    waterId: 38454,
     lastPostDate: 'August 2020',
-    value: '68'
+    value: 68
   }
 ]
 ```
