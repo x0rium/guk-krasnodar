@@ -4,10 +4,16 @@ const request = require("request");
 interface Response {
     body: string,
     statusCode: number,
-    headers: object
+    // @ts-ignore
+    headers: cHeaders
 }
 
-interface GUK {
+type cHeaders = {
+    "set-cookie": string[]
+}
+
+
+type GUK = {
     id: number,
     type: string,
     hwid: number,
@@ -22,20 +28,22 @@ class Integration {
     private cookie: string
     private readonly accountNumber: string
     private requestOptions = {
-        followAllRedirects: undefined,
-        jar: undefined,
-        headers: undefined,
-        url: undefined,
-        method: undefined,
-        formData: undefined
+        followAllRedirects: true,
+        jar: true,
+        headers: {},
+        url: "",
+        method: "",
+        formData: {}
     }
     private readonly endpoint = "http://lk.gukkrasnodar.ru"
 
     constructor(accountNumber: string,) {
+        this.csrf = "";
+        this.cookie = "";
         this.accountNumber = accountNumber;
     }
 
-    private _parse(body: string, headers: object, statusCode: number) {
+    private _parse(body: string, headers: cHeaders, statusCode: number) {
         if (statusCode >= 200) {
             if (statusCode < 400) {
                 this.csrf = Integration._parseMetaToken(body)
@@ -46,27 +54,42 @@ class Integration {
 
     private static _parseMetaToken(html: string): string {
         const rule = /<meta name="csrf-token" content="(?<token>.*)">/
-        return html.match(rule).groups.token;
+        const matched = html.match(rule);
+        if (matched && matched.groups) {
+            return matched.groups.token;
+        }
+        return "";
     }
 
-    private static _parseCookie(headers) {
-        const arr = headers['set-cookie'];
-        if (arr) {
-            const session = Integration._parseSession(arr[0]);
-            const csrf = Integration._parseCsrf(arr[1]);
-            return `PHPSESSID=${session}; _csrf=${csrf}`;
+    private static _parseCookie(headers: cHeaders): string {
+        let arr: string[];
+        if (headers.hasOwnProperty("set-cookie")) {
+            arr = headers['set-cookie'];
+            if (arr) {
+                const session = Integration._parseSession(arr[0]);
+                const csrf = Integration._parseCsrf(arr[1]);
+                return `PHPSESSID=${session}; _csrf=${csrf}`;
+            }
         }
-        return ""
+        return "";
     }
 
     private static _parseSession(str: string): string {
         const rule = /PHPSESSID=(?<phpsessid>.*); path/
-        return str.match(rule).groups.phpsessid;
+        const matched = str.match(rule);
+        if (matched && matched.groups) {
+            return matched.groups.phpsessid;
+        }
+        return "";
     }
 
     private static _parseCsrf(str: string): string {
         const rule = /_csrf=(?<csrf>.*); path/
-        return str.match(rule).groups.csrf;
+        const matched = str.match(rule);
+        if (matched && matched.groups) {
+            return matched.groups.csrf;
+        }
+        return "";
     }
 
     private execute(): Promise<Response> {
@@ -79,10 +102,11 @@ class Integration {
         }
         return new Promise((resolve, reject) => {
 
-            request(this.requestOptions, (error, response) => {
+            request(this.requestOptions, (error: unknown, response: Response) => {
                 if (error) {
                     reject(error);
                 }
+                // @ts-ignore
                 this._parse(response.body, response.headers, response.statusCode);
                 resolve(response);
             });
@@ -120,31 +144,31 @@ class Integration {
 
     private parseValues(html: string): GUK[] {
         let clear;
-        const matches = {
-            rule1: undefined,
-            rule2: undefined,
-        };
+        let rule1: IterableIterator<RegExpMatchArray>;
+        let rule2: IterableIterator<RegExpMatchArray>;
         clear = html.replace(/^\s*[\r\n]/gm, "").replace(/^\s*$(?:\r\n?|\n)/gm, "");
-        const rule1 = /<tr data-key="(?<id>\d{1,10})"><td data-col-seq="0"><strong>(?<type>.{1,20})<\/strong><\/td><td data-col-seq="1">(?<hwId>\d{1,10})<\/td><td data-col-seq="2">(?<nextCheckDate>.{6,10})/gm
-        matches.rule1 = clear.matchAll(rule1);
-        const rule2 = /<tr data-key="(?<waterId>\d{1,6})"><td data-col-seq="0">(?<lastPostDate>.{3,20})<\/td><td data-col-seq="1">(?<value>\d{1,10})/gm
-        matches.rule2 = clear.matchAll(rule2);
-        const values = [];
+        const regex1 = /<tr data-key="(?<id>\d{1,10})"><td data-col-seq="0"><strong>(?<type>.{1,20})<\/strong><\/td><td data-col-seq="1">(?<hwId>\d{1,10})<\/td><td data-col-seq="2">(?<nextCheckDate>.{6,10})/gm
+        rule1 = clear.matchAll(regex1);
+        const regex2 = /<tr data-key="(?<waterId>\d{1,6})"><td data-col-seq="0">(?<lastPostDate>.{3,20})<\/td><td data-col-seq="1">(?<value>\d{1,10})/gm
+        rule2 = clear.matchAll(regex2);
+        const values: object[] = [];
         let x = 0;
-        for (const m of matches.rule1) {
+        for (const m of rule1) {
             values[x] = Object.assign({}, m.groups);
             x++
         }
 
         x = 0;
-        for (const m of matches.rule2) {
+        for (const m of rule2) {
             values[x] = Object.assign(values[x], m.groups);
             x++;
         }
 
+        // @ts-ignore
         return values.map((item => {
             const fields = ["id", "hwId", "waterId", "value"];
             fields.forEach(field => {
+                // @ts-ignore
                 item[field] = parseInt(item[field], 0);
             })
             return item;
