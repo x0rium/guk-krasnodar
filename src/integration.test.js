@@ -1,4 +1,4 @@
-const integration = require("./Integration");
+const integration = require("../index");
 
 test("parsing", async () => {
     const html = `
